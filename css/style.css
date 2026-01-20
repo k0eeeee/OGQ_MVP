@@ -288,6 +288,10 @@ a {
   object-fit: cover;
 }
 
+.request-page .selected-image-wrap img {
+  object-position: center 70%;
+}
+
 .form-block {
   margin-bottom: 24px;
 }
