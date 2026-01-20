@@ -117,6 +117,64 @@
     return data;
   }
 
+  // 필수 옵션 선택 확인 (assetType, clientCount, exclusiveUse)
+  function validateRequiredOptions() {
+    var requiredNames = ['assetType', 'clientCount', 'exclusiveUse'];
+    var missingTitles = [];
+
+    for (var i = 0; i < requiredNames.length; i++) {
+      var name = requiredNames[i];
+      var optionsEl = document.querySelector('.form-block .options[data-name="' + name + '"]');
+      if (!optionsEl) continue;
+
+      var selected = optionsEl.querySelector('.btn-option.selected');
+      if (!selected) {
+        var block = optionsEl.closest('.form-block');
+        var titleEl = block ? block.querySelector('.block-title') : null;
+        var titleText = titleEl ? titleEl.textContent.trim() : '';
+        if (titleText) missingTitles.push(titleText);
+        continue;
+      }
+
+      // '기타' 선택 시 주관식 입력이 비어있으면 미선택으로 처리
+      var isOther = selected.classList.contains('btn-other') || selected.getAttribute('data-value') === '기타';
+      if (isOther) {
+        var otherId = selected.getAttribute('data-other');
+        var otherInput = otherId ? document.getElementById(otherId) : null;
+        if (!otherInput || !otherInput.value || !otherInput.value.trim()) {
+          var block2 = optionsEl.closest('.form-block');
+          var titleEl2 = block2 ? block2.querySelector('.block-title') : null;
+          var titleText2 = titleEl2 ? titleEl2.textContent.trim() : '';
+          if (titleText2) missingTitles.push(titleText2);
+        }
+      }
+    }
+
+    if (missingTitles.length > 0) {
+      return { ok: false, titles: missingTitles };
+    }
+
+    return { ok: true, titles: [] };
+  }
+
+  // 안내 모달 열기/닫기
+  function showAlertModal(message) {
+    var modal = document.getElementById('alertModal');
+    var msgEl = document.getElementById('alertModalMessage');
+    if (!modal || !msgEl) return;
+
+    msgEl.textContent = message;
+    modal.classList.add('visible');
+    modal.setAttribute('aria-hidden', 'false');
+  }
+
+  function hideAlertModal() {
+    var modal = document.getElementById('alertModal');
+    if (!modal) return;
+    modal.classList.remove('visible');
+    modal.setAttribute('aria-hidden', 'true');
+  }
+
   // 서버에 기록 (엑셀 저장용) — 서버 미사용 시 실패해도 진행
   function recordToServer(data) {
     var base = (typeof API_BASE !== 'undefined' && API_BASE) ? API_BASE : '';
@@ -135,6 +193,15 @@
       : '#';
 
     btn.addEventListener('click', function () {
+      var validation = validateRequiredOptions();
+      if (!validation.ok) {
+        var titles = (validation.titles && validation.titles.length)
+          ? validation.titles.join(', ')
+          : '필수';
+        showAlertModal(titles + ' 옵션을 선택해주세요.');
+        return;
+      }
+
       var data = collectFormData();
       btn.disabled = true;
       btn.textContent = '처리 중...';
@@ -149,4 +216,16 @@
   initSelectedImage();
   bindOptionButtons();
   bindSubmit();
+
+  // 모달 확인 버튼 및 배경 클릭으로 닫기
+  var modalConfirmBtn = document.getElementById('alertModalConfirmBtn');
+  if (modalConfirmBtn) {
+    modalConfirmBtn.addEventListener('click', hideAlertModal);
+  }
+  var alertModal = document.getElementById('alertModal');
+  if (alertModal) {
+    alertModal.addEventListener('click', function (e) {
+      if (e.target === alertModal) hideAlertModal();
+    });
+  }
 })();

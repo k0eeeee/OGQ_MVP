@@ -65,6 +65,10 @@ a {
   text-align: center;
 }
 
+.request-page .section-title {
+  margin-top: 48px;
+}
+
 .section-desc {
   font-size: 0.875rem;
   color: var(--desc);
@@ -113,6 +117,10 @@ a {
   cursor: pointer;
   margin: 4px 6px 4px 0;
   transition: background 0.2s, color 0.2s;
+}
+
+.request-page .btn-option {
+  border-radius: 50px;
 }
 
 .btn-option:hover {
@@ -225,6 +233,10 @@ a {
   background: var(--placeholder);
 }
 
+.request-page .selected-image-wrap {
+  border-radius: 0;
+}
+
 .selected-image-wrap img {
   width: 100%;
   height: 100%;
@@ -235,11 +247,23 @@ a {
   margin-bottom: 24px;
 }
 
+.request-page .form-block {
+  text-align: center;
+}
+
+.request-page .form-block.space-large {
+  margin-bottom: 60px;
+}
+
 .form-block .block-title {
   font-size: 1rem;
   font-weight: 600;
   color: var(--title);
   margin-bottom: 6px;
+}
+
+.request-page .form-block .block-title {
+  font-size: 1.0625rem;
 }
 
 .form-block .block-desc {
@@ -253,6 +277,27 @@ a {
   display: flex;
   flex-wrap: wrap;
   gap: 4px 6px;
+}
+
+.request-page .form-block .options {
+  justify-content: center;
+}
+
+/* 의뢰할 에셋 유형: 첫 줄에 '노트 템플릿'까지(3개) 배치 */
+.request-page .form-block .options[data-name="assetType"] {
+  width: 100%;
+  max-width: 380px;
+  margin: 0 auto;
+}
+
+.request-page .form-block .options[data-name="assetType"] .btn-option {
+  padding-inline: 16px;
+  white-space: nowrap;
+}
+
+.request-page .form-block .options[data-name="assetType"] .options-break {
+  flex: 0 0 100%;
+  height: 0;
 }
 
 .form-block .other-inline {
@@ -275,6 +320,10 @@ a {
   outline: none;
 }
 
+.request-page .form-block .other-inline input {
+  margin: 0 auto;
+}
+
 .form-block textarea {
   width: 100%;
   min-height: 120px;
@@ -286,6 +335,13 @@ a {
   outline: none;
   resize: vertical;
   color: var(--title);
+}
+
+.request-page .form-block textarea {
+  line-height: 1.5;
+  height: calc(1.5em * 8 + 24px);
+  min-height: unset;
+  resize: none;
 }
 
 .form-block textarea::placeholder {
@@ -312,4 +368,48 @@ a {
   justify-content: center;
   font-size: 0.875rem;
   color: var(--desc);
+}
+
+.request-page .placeholder-box {
+  border-radius: 0;
+}
+
+/* ========== 모달 ========== */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-overlay.visible {
+  display: flex;
+}
+
+.modal-content {
+  width: 100%;
+  max-width: 320px;
+  margin: 0 20px;
+  padding: 20px 16px;
+  padding-top: calc(1.5em * 2);
+  background: #ffffff;
+  border-radius: 14px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  text-align: center;
+}
+
+.modal-message {
+  font-size: 0.9375rem;
+  color: var(--title);
+  line-height: 1.5;
+  margin-bottom: calc(1.5em * 1);
+}
+
+.modal-confirm-btn {
+  max-width: 160px;
+  margin: 0 auto;
+  margin-bottom: 0;
 }
