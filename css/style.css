@@ -65,6 +65,10 @@ a {
   text-align: center;
 }
 
+.home-page .section-title {
+  margin-bottom: 16px;
+}
+
 .request-page .section-title {
   margin-top: 48px;
 }
@@ -75,6 +79,10 @@ a {
   line-height: 1.5;
   text-align: center;
   margin-bottom: 20px;
+}
+
+.home-page .section-desc {
+  margin-bottom: 40px;
 }
 
 /* ========== ?? ========== */
@@ -94,6 +102,12 @@ a {
   cursor: pointer;
   text-align: center;
   transition: opacity 0.2s;
+}
+
+.home-page .btn-primary {
+  margin-bottom: 56px;
+  border-radius: 999px;
+  max-width: 360px;
 }
 
 .btn-primary:hover, .btn-primary:focus {
@@ -147,6 +161,11 @@ a {
   transition: box-shadow 0.2s;
 }
 
+.home-page .artist-card {
+  max-width: 520px;
+  margin: 0 auto;
+}
+
 .artist-card:hover {
   box-shadow: 0 4px 12px rgba(0,0,0,0.06);
 }
@@ -154,6 +173,25 @@ a {
 .artist-card a {
   display: block;
   padding: 16px;
+}
+
+.home-page .artist-card a {
+  padding: 14px 16px;
+}
+
+.home-page .artist-card a {
+  text-align: center;
+}
+
+.artist-card .profile {
+  width: 92px;
+  height: 92px;
+  border-radius: 999px;
+  object-fit: cover;
+  background: var(--placeholder);
+  display: block;
+  margin: -26px auto 10px;
+  border: 3px solid var(--bg);
 }
 
 .artist-card .name {
@@ -173,6 +211,12 @@ a {
   display: flex;
   gap: 8px;
   margin-bottom: 12px;
+}
+
+.home-page .artist-card .thumb-row {
+  width: fit-content;
+  margin: 0 auto 12px;
+  justify-content: center;
 }
 
 .artist-card .thumb {
@@ -212,6 +256,7 @@ a {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center 70%;
 }
 
 .illu-item .label {
