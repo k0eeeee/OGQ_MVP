@@ -183,6 +183,16 @@ a {
   text-align: center;
 }
 
+.artist-profile {
+  width: 92px;
+  height: 92px;
+  border-radius: 999px;
+  object-fit: cover;
+  background: var(--placeholder);
+  display: block;
+  margin: 24px auto 8px;
+}
+
 .artist-card .profile {
   width: 92px;
   height: 92px;
