@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>커미션 의뢰 - OGQ GRAFOLIO</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header>
+    <a href="index.html" class="logo">OGQ GRAFOLIO</a>
+  </header>
+
+  <main>
+    <h1 class="section-title">선택한 사진</h1>
+
+    <div class="selected-image-wrap" id="selectedImageWrap">
+      <img id="selectedImage" src="" alt="선택한 이미지">
+      <div id="placeholderText" class="placeholder-box" style="display:none;">선택한 이미지</div>
+    </div>
+
+    <p class="section-desc" style="margin-bottom: 24px;">아래 각 항목의 원하는 요소를 선택하신 후 '커미션 의뢰하기' 버튼을 눌러주세요</p>
+
+    <!-- 의뢰할 에셋 유형 -->
+    <div class="form-block">
+      <div class="block-title">의뢰할 에셋 유형</div>
+      <div class="block-desc">다음 중 어떤 에셋으로 커미션을 의뢰하고 싶나요?</div>
+      <div class="options" data-name="assetType">
+        <button type="button" class="btn-option" data-value="다이어리">다이어리</button>
+        <button type="button" class="btn-option" data-value="플래너">플래너</button>
+        <button type="button" class="btn-option" data-value="노트 템플릿">노트 템플릿</button>
+        <button type="button" class="btn-option" data-value="스티커">스티커</button>
+        <button type="button" class="btn-option btn-other" data-value="기타" data-other="assetTypeOther">기타</button>
+      </div>
+      <div class="other-inline" id="assetTypeOtherWrap">
+        <input type="text" id="assetTypeOther" placeholder="직접 입력" maxlength="100">
+      </div>
+    </div>
+
+    <!-- 의뢰인 수 -->
+    <div class="form-block">
+      <div class="block-title">의뢰인 수</div>
+      <div class="block-desc">본인 포함 몇 명과 함께 커미션을 의뢰하고 싶나요? 더 많은 사람이 함께할수록 개인 부담 의뢰비가 낮아져요.</div>
+      <div class="options" data-name="clientCount">
+        <button type="button" class="btn-option" data-value="혼자 (1명)">혼자 (1명)</button>
+        <button type="button" class="btn-option" data-value="5명 이하">5명 이하</button>
+        <button type="button" class="btn-option" data-value="10명 이하">10명 이하</button>
+        <button type="button" class="btn-option" data-value="30명 이하">30명 이하</button>
+        <button type="button" class="btn-option btn-other" data-value="기타" data-other="clientCountOther">기타</button>
+      </div>
+      <div class="other-inline" id="clientCountOtherWrap">
+        <input type="text" id="clientCountOther" placeholder="직접 입력" maxlength="50">
+      </div>
+    </div>
+
+    <!-- 단독 사용 여부 -->
+    <div class="form-block">
+      <div class="block-title">단독 사용 여부</div>
+      <div class="block-desc">단독 사용을 선택하면 제작 비용이 높아지는 대신 의뢰자들끼리만 사용할 수 있는 권리가 생겨요.</div>
+      <div class="options" data-name="exclusiveUse">
+        <button type="button" class="btn-option" data-value="우리(혼자)만 쓸래요">우리(혼자)만 쓸래요</button>
+        <button type="button" class="btn-option" data-value="재판매 되어도 괜찮아요">재판매 되어도 괜찮아요</button>
+      </div>
+    </div>
+
+    <!-- 커미션 요청사항 -->
+    <div class="form-block">
+      <div class="block-title">커미션 요청사항</div>
+      <div class="block-desc">작가님께 부탁드리고 싶은 요청사항이 있다면 작성해주세요.</div>
+      <textarea id="requestNote" placeholder="예) 굿노트로 사용하고 싶으니 파일 형식이 pdf로 만들어주세요. 따뜻한 색감을 강하게 표현해주세요."></textarea>
+    </div>
+
+    <div class="submit-wrap">
+      <button type="button" class="btn-primary" id="submitBtn">커미션 의뢰하기</button>
+    </div>
+  </main>
+
+  <script src="js/config.js"></script>
+  <script src="js/request.js"></script>
+</body>
+</html>

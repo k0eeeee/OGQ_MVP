@@ -1,0 +1,9 @@
+{
+  "name": "ogq-grafolio-mvp",
+  "version": "1.0.0",
+  "description": "OGQ GRAFOLIO 모바일 MVP - 커미션 의뢰",
+  "scripts": {
+    "server": "node server.js",
+    "start": "node server.js"
+  }
+}
