@@ -259,7 +259,7 @@ a {
 .illu-item a {
   display: block;
   width: 100%;
-  aspect-ratio: 4/3;
+  aspect-ratio: 1/1;
 }
 
 .illu-item img {
@@ -282,14 +282,14 @@ a {
   width: 100%;
   max-width: 320px;
   margin: 0 auto 12px;
-  aspect-ratio: 4/3;
+  aspect-ratio: 1/1;
   border-radius: 12px;
   overflow: hidden;
   background: var(--placeholder);
 }
 
 .request-page .selected-image-wrap {
-  border-radius: 0;
+  border-radius:12px;
 }
 
 .selected-image-wrap img {
