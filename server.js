@@ -78,6 +78,17 @@ var server = http.createServer(function (req, res) {
   var u = url.parse(req.url, true);
   var pathname = u.pathname;
 
+  // OPTIONS /api/record — CORS 프리플라이트 (로컬/다른 포트에서 호출 허용)
+  if (req.method === 'OPTIONS' && pathname === '/api/record') {
+    res.writeHead(204, {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'POST, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type'
+    });
+    res.end();
+    return;
+  }
+
   // POST /api/record — 엑셀(CSV) 기록
   if (req.method === 'POST' && pathname === '/api/record') {
     var body = '';
@@ -86,8 +97,10 @@ var server = http.createServer(function (req, res) {
       try {
         var data = JSON.parse(body || '{}');
         appendRecord(data);
+        res.setHeader('Access-Control-Allow-Origin', '*');
         send(res, 200, JSON.stringify({ ok: true }), 'application/json; charset=utf-8');
       } catch (e) {
+        res.setHeader('Access-Control-Allow-Origin', '*');
         send(res, 400, JSON.stringify({ ok: false, error: String(e) }), 'application/json; charset=utf-8');
       }
     });

@@ -99,7 +99,9 @@
 
     var blocks = document.querySelectorAll('.form-block');
     for (var i = 0; i < blocks.length; i++) {
-      var name = (blocks[i].querySelector('.options') || {}).getAttribute('data-name');
+      var optsEl = blocks[i].querySelector('.options');
+      if (!optsEl) continue;
+      var name = optsEl.getAttribute('data-name');
       if (!name) continue;
 
       var sel = blocks[i].querySelector('.btn-option.selected');
@@ -175,14 +177,28 @@
     modal.setAttribute('aria-hidden', 'true');
   }
 
-  // 서버에 기록 (엑셀 저장용) — 서버 미사용 시 실패해도 진행
+  // 서버 또는 구글 시트에 기록 (GOOGLE_SHEET_WEB_APP_URL 우선, 없으면 /api/record)
+  // sendBeacon 사용: 응답을 기다리지 않고, 페이지 이동(설문 리다이렉트) 시에도 전송이 완료되도록 함
   function recordToServer(data) {
-    var base = (typeof API_BASE !== 'undefined' && API_BASE) ? API_BASE : '';
-    return fetch(base + '/api/record', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data)
-    }).catch(function () {});
+    var url;
+    if (typeof GOOGLE_SHEET_WEB_APP_URL !== 'undefined' && GOOGLE_SHEET_WEB_APP_URL) {
+      url = GOOGLE_SHEET_WEB_APP_URL;
+    } else {
+      var base = (typeof API_BASE !== 'undefined' && API_BASE) ? API_BASE : '';
+      url = base + '/api/record';
+    }
+    var body = JSON.stringify(data);
+    // text/plain: CORS 사전요청(OPTIONS) 없이 전송되어, Google Apps Script 콜드스타트/지연 시에도 설문 이동이 막히지 않음
+    var blob = new Blob([body], { type: 'text/plain;charset=UTF-8' });
+    if (typeof navigator !== 'undefined' && navigator.sendBeacon) {
+      navigator.sendBeacon(url, blob);
+    } else {
+      fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: body
+      }).catch(function () {});
+    }
   }
 
   // 제출: 기록 후 외부 설문지로 이동
@@ -206,9 +222,8 @@
       btn.disabled = true;
       btn.textContent = '처리 중...';
 
-      recordToServer(data).finally(function () {
-        window.location.href = surveyUrl;
-      });
+      recordToServer(data);
+      window.location.href = surveyUrl;
     });
   }
 
